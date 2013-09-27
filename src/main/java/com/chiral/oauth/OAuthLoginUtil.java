@@ -24,51 +24,43 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-
 package com.chiral.oauth;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 
 /**
- * A quick and dirty util to get the goddamn oauth token from Salesforce so we can all
- * move on with our lives. Not that we're bitter or anything.
+ * A quick and dirty util to get the goddamn oauth token from Salesforce so we
+ * can all move on with our lives. Not that we're bitter or anything.
+ * 
  * @author hparry
  * @author hhildebrand
- *
+ * 
  */
 public class OAuthLoginUtil {
-	// The connection data
-	private static final String clientId = "3MVG9A2kN3Bn17hv1LMM2yEJZ.6CYoCg.FA.115PqoH8kMFPOPyHjy_dRQzAH_WZ9BOJHLpEB6C3XdtbUbBr7";
-	private static final String secret = "2875976084689535109";
-	// THis is meaningless in our context
-	private static final String redirectUri = "https://localhost:8443/_callback";
-	private static final String environment = "https://login.salesforce.com";
-	private static String tokenUrl = null;
-	private static final String username = "hal.hildebrand@halhildebrand.com";
-	private static final String password = "God4LarryEllisonsWdRVmt7BIJdeZ95jEpiVXDh3";
-	private static String accessToken = null;
-	private static String instanceUrl = null;
 
-	public static void main(String[] args) {
+
+	
+	public static void main(String[] args) throws Exception {
 		// Step 0: Connect to SalesForce.
+		OAuthConfiguration config;
+		File configFile = new File(args[0]);
+		config = OAuthConfiguration.fromYaml(new FileInputStream(configFile));
 		System.out.println("Getting a token");
-		tokenUrl = environment + "/services/oauth2/token";
+		String tokenUrl = config.environment + "/services/oauth2/token";
 		HttpClient httpclient = new HttpClient();
 		PostMethod post = new PostMethod(tokenUrl);
 		post.addParameter("grant_type", "password");
-		post.addParameter("client_id", clientId);
-		post.addParameter("client_secret", secret);
-		post.addParameter("redirect_uri", redirectUri);
-		post.addParameter("username", username);
-		post.addParameter("password", password);
+		post.addParameter("client_id", config.clientId);
+		post.addParameter("client_secret", config.secret);
+		post.addParameter("redirect_uri", config.redirectUri);
+		post.addParameter("username", config.username);
+		post.addParameter("password", config.password);
 
 		try {
 			httpclient.executeMethod(post);
@@ -80,9 +72,6 @@ public class OAuthLoginUtil {
 		} finally {
 			post.releaseConnection();
 		}
-		System.out.println("We have an access token: " + accessToken + "\n"
-				+ "Using instance " + instanceUrl + "\n\n");
-
 	}
 
 }
