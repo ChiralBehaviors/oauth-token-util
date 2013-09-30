@@ -2,7 +2,7 @@
 #uncomment the lines, and run the main file with the argument:
 # src/main/resources/example.yml
 
-#clientId and secret come from Salesforce. You'll need to create a new Connected App, and 
+#clientId and secret come from Salesforce. You'll need to create a new Connected App, and d
 #clientId: <some random long string>
 #secret: <shhhhhhh don't tell. But from Salesforce, it's a number string about 20 digits long>
 #redirectUris are for when you've got a web app doing a handshake with the OAuth server
@@ -16,4 +16,6 @@
 #CODE and it's certainly not a best practice. I recommend using this for developer organizations
 #ONLY. Also, for the love of god, don't populate this file and then check it in anywhere. That
 #would be bad.
-#password: <your salesforce password>
+#For API requests, Salesforce typically requires you to concatenate your password with a security
+#token, so do that. Search the Salesforce docs for more info
+#password: <your salesforce password + security token>
