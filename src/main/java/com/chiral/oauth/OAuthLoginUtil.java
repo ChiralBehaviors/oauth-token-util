@@ -53,6 +53,7 @@ public class OAuthLoginUtil {
 		config = OAuthConfiguration.fromYaml(new FileInputStream(configFile));
 		System.out.println("Getting a token");
 		String tokenUrl = config.environment + "/services/oauth2/token";
+		//TODO hparry use JAX-RS instead of Apache commons
 		HttpClient httpclient = new HttpClient();
 		PostMethod post = new PostMethod(tokenUrl);
 		post.addParameter("grant_type", "password");

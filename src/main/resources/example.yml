@@ -1,0 +1,19 @@
+#This is an example config file. Fill in appropriate values for the fields below,
+#uncomment the lines, and run the main file with the argument:
+# src/main/resources/example.yml
+
+#clientId and secret come from Salesforce. You'll need to create a new Connected App, and 
+#clientId: <some random long string>
+#secret: <shhhhhhh don't tell. But from Salesforce, it's a number string about 20 digits long>
+#redirectUris are for when you've got a web app doing a handshake with the OAuth server
+#if you're not doing that (and we aren't), just fake it. No one cares, and there will not
+#be a test. More importantly, no one validates the callback.
+#redirectUri: fakeURI.testing
+#environment: https://login.salesforce.com
+#username: <your salesforce login>
+#Please note: this is for the Salesforce OAuth password flow, which means, yes, using plaintext
+#credentials. The intent is to get a one-time OAuth token for prototyping. THIS IS NOT PRODUCTION
+#CODE and it's certainly not a best practice. I recommend using this for developer organizations
+#ONLY. Also, for the love of god, don't populate this file and then check it in anywhere. That
+#would be bad.
+#password: <your salesforce password>
